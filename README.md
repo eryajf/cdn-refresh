@@ -9,13 +9,63 @@
 
 <p> 🆕 多吉云CDN缓存刷新插件 </p>
 
-<img src="https://cnb.cool/66666/resource/-/git/raw/main/img/hengtiao.gif" width="100%" height="1">
+<img src="https://cnb.cool/66666/resource/-/git/raw/main/img/hengtiao.gif" width="100%" height="3">
 </div><br>
 
+## ℹ️ 项目简介
+
+本项目为 [多吉云](https://www.dogecloud.com/) CDN 缓存刷新插件，支持刷新目录和 URL 缓存。
+
+## 🗣️ 用法介绍
+
+刷新CDN 目录缓存：
+
+```yaml
+main:
+  push:
+    - imports:
+        - https://cnb.cool/eryajf/build-env/-/blob/main/env.yaml
+      stages:
+        - name: test dcr path
+          image: docker.cnb.cool/znb/doge-cdn-refresh/dcr
+          settings:
+            ak: "${DOGE_AK}"
+            sk: "${DOGE_SK}"
+            rtype: "path"
+            urls: 
+              - "https://jenkinsguide.opsre.top/"
+```
+
+刷新CDN URL缓存：
+
+```yaml
+main:
+  push:
+    - imports:
+        - https://cnb.cool/eryajf/build-env/-/blob/main/env.yaml
+      stages:
+        - name: test dcr url
+          image: docker.cnb.cool/znb/doge-cdn-refresh/dcr
+          settings:
+            ak: "${DOGE_AK"
+            sk: "${DOGE_SK}"
+            rtype: "url"
+            urls: 
+              - "https://wiki.eryajf.net/about/"
+              - "https://wiki.eryajf.net/pages/b2f34c/"
+```
+
+## 📑 参数说明
+
+| 参数 | **必须**/**可选** | 类型 |          说明          |
+| :--: | :---------------: | :--------------------: | :--------------------- |
+|  ak  |     **必须**      |     string     | 访问多吉云的Access Key |
+|  sk  |     **必须**      |    string | 访问多吉云的Secret Key |
+| rtype |     **必须**      |    string |        刷新类型，接受 `path` 或 `url`  |
+| urls  |     **必须**      |     array |        刷新URL，一个或多个          |
 
 
-
-## 项目源码
+## 📇 项目地址
 
 可选择你熟悉的平台浏览源码：
 
