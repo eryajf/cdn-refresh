@@ -12,3 +12,14 @@
 <img src="https://cnb.cool/66666/resource/-/git/raw/main/img/hengtiao.gif" width="100%" height="1">
 </div><br>
 
+
+
+
+## 项目源码
+
+可选择你熟悉的平台浏览源码：
+
+|   服务商   |                   地址                   |
+| :------: | :------------------------------------------: |
+|  `CNB`  | <https://cnb.cool/znb/doge-cdn-refresh>  |
+| `GitHub` | <https://github.com/eryajf/doge-cdn-refresh> |
