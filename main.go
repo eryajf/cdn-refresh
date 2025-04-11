@@ -33,7 +33,7 @@ func init() {
 var rootCmd = &cobra.Command{
 	Use:     "doge-cdn-refresh",
 	Short:   "Doge CDN refresh plugin",
-	Version: "v0.0.1",
+	Version: "v0.1.0",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		ak, _ := cmd.Flags().GetString("ak")
 		sk, _ := cmd.Flags().GetString("sk")
