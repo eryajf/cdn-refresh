@@ -8,13 +8,15 @@ import (
 
 	"cnb.cool/znb/doge-cdn-refresh/doge"
 	"github.com/spf13/cobra"
+	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
 )
 
 func init() {
+	// 首先从环境变量中获取配置
 	viper.AutomaticEnv()
 	viper.SetEnvPrefix("PLUGIN")
-	viper.BindEnv("ak")
+	viper.BindEnv("ak") // 获取环境变量 PLUGIN_AK 的值
 	viper.BindEnv("sk")
 	viper.BindEnv("rtype")
 	viper.BindEnv("urls")
@@ -22,6 +24,10 @@ func init() {
 	rootCmd.Flags().StringP("sk", "s", viper.GetString("sk"), "Doge cloud secret key [$PLUGIN_SK]")
 	rootCmd.Flags().StringP("rtype", "t", viper.GetString("rtype"), "Refresh type (url/path) [$PLUGIN_RTYPE]")
 	rootCmd.Flags().StringSliceP("urls", "u", strings.Split(viper.GetString("urls"), ","), "Refresh URLs [$PLUGIN_URLS]")
+	// 遍历所有 flags，清除默认值占位符，避免在日志中打印
+	rootCmd.Flags().VisitAll(func(f *pflag.Flag) {
+		f.DefValue = ""
+	})
 }
 
 var rootCmd = &cobra.Command{

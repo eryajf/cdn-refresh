@@ -6,7 +6,7 @@
         "ZNB",
         "eryajf"
     ],
-    "images": "https://cnb.cool/znb/doge-cdn-refresh/-/packages/docker/dcr",
+    "images": "https://cnb.cool/znb/doge-cdn-refresh/-/packages/docker/doge-cdn-refresh/dcr.",
     "source": "https://cnb.cool/znb/doge-cdn-refresh",
     "bugs": "https://cnb.cool/znb/doge-cdn-refresh/-/issues"
 }
