@@ -16,3 +16,5 @@ ARG TARGETARCH
 COPY bin/${BINARY_NAME}_${TARGETOS}_${TARGETARCH} /usr/local/bin/${BINARY_NAME}
 
 RUN chmod +x /usr/local/bin/${BINARY_NAME}
+
+ENTRYPOINT /usr/local/bin/${BINARY_NAME}

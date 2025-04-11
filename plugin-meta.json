@@ -1,0 +1,12 @@
+{
+    "name": "doge-cdn-refresh",
+    "description": "一个刷新多吉云CDN缓存的插件",
+    "tags": [
+        "CDN",
+        "ZNB",
+        "eryajf"
+    ],
+    "images": "https://cnb.cool/znb/doge-cdn-refresh/-/packages/docker/dcr",
+    "source": "https://cnb.cool/znb/doge-cdn-refresh",
+    "bugs": "https://cnb.cool/znb/doge-cdn-refresh/-/issues"
+}
