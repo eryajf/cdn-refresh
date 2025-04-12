@@ -16,6 +16,8 @@
 
 本项目为 [多吉云](https://www.dogecloud.com/) CDN 缓存刷新插件，支持刷新目录和 URL 缓存。
 
+访问：[插件市场](https://docs.cnb.cool/zh/plugins.html)
+
 ## 🗣️ 用法介绍
 
 刷新CDN 目录缓存：
@@ -32,7 +34,7 @@ main:
             ak: "${DOGE_AK}"
             sk: "${DOGE_SK}"
             rtype: "path"
-            urls: 
+            urls:
               - "https://jenkinsguide.opsre.top/"
 ```
 
@@ -50,7 +52,7 @@ main:
             ak: "${DOGE_AK"
             sk: "${DOGE_SK}"
             rtype: "url"
-            urls: 
+            urls:
               - "https://wiki.eryajf.net/about/"
               - "https://wiki.eryajf.net/pages/b2f34c/"
 ```
