@@ -14,9 +14,7 @@
 
 ## ℹ️ 项目简介
 
-本项目为 [多吉云](https://www.dogecloud.com/) CDN 缓存刷新插件，支持刷新目录和 URL 缓存。
-
-访问：[插件市场](https://docs.cnb.cool/zh/plugins.html)
+本项目为 [多吉云](https://www.dogecloud.com/) CDN 缓存刷新插件，支持刷新目录和 URL 缓存。访问：[插件市场](https://docs.cnb.cool/zh/plugins.html)
 
 ## 🗣️ 用法介绍
 
