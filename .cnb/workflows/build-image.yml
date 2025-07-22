@@ -13,7 +13,7 @@ main:
           script: |
             curl -SL https://cnb.cool/66666/resource/-/git/raw/main/src/upx -o /usr/local/bin/upx
             curl -SL https://cnb.cool/66666/resource/-/git/raw/main/src/gox -o /usr/local/bin/gox 
-            chmod +x /usr/local/bin/*
+            chmod +x /usr/local/bin/upx && chmod +x /usr/local/bin/gox
             make gox-linux
         - name: docker build and push
           script: docker buildx build -t ${IMAGE_TAG} --platform linux/amd64,linux/arm64 --push .
