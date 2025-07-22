@@ -1,0 +1,19 @@
+main:
+  push:
+    - runner:
+        tags: cnb:arch:amd64:containerd-snapshotter
+      docker:
+        image: golang:1.24
+      services:
+        - docker
+      env:
+        IMAGE_TAG: ${CNB_DOCKER_REGISTRY}/${CNB_REPO_SLUG_LOWERCASE}:latest
+      stages:
+        - name: go build
+          script: |
+            curl -SL https://cnb.cool/66666/resource/-/git/raw/main/src/upx -o /usr/local/bin/upx
+            curl -SL https://cnb.cool/66666/resource/-/git/raw/main/src/gox -o /usr/local/bin/gox 
+            chmod +x /usr/local/bin/*
+            make gox-linux
+        - name: docker build and push
+          script: docker buildx build -t ${IMAGE_TAG} --platform linux/amd64,linux/arm64 --push .

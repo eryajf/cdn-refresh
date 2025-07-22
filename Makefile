@@ -1,5 +1,5 @@
 # 定义项目名称
-BINARY_NAME=dcr
+BINARY_NAME=cr
 
 # 定义输出目录
 OUTPUT_DIR=bin

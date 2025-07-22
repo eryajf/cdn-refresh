@@ -1,12 +1,13 @@
 {
-    "name": "doge-cdn-refresh",
-    "description": "一个刷新多吉云CDN缓存的插件",
+    "name": "cdn-refresh",
+    "description": "一个支持刷新多个云CDN缓存的插件",
     "tags": [
         "CDN",
+        "EO",
         "ZNB",
         "eryajf"
     ],
-    "images": "https://cnb.cool/znb/doge-cdn-refresh/-/packages/docker/doge-cdn-refresh/dcr.",
-    "source": "https://cnb.cool/znb/doge-cdn-refresh",
-    "bugs": "https://cnb.cool/znb/doge-cdn-refresh/-/issues"
+    "images": "https://cnb.cool/znb/cdn-refresh/-/packages/docker/doge-cdn-refresh/dcr.",
+    "source": "https://cnb.cool/znb/cdn-refresh",
+    "bugs": "https://cnb.cool/znb/cdn-refresh/-/issues"
 }

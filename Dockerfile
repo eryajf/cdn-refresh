@@ -3,7 +3,7 @@ FROM alpine:3.21
 LABEL maintainer=eryajf
 
 ENV TZ=Asia/Shanghai
-ENV BINARY_NAME=dcr
+ENV BINARY_NAME=cr
 
 RUN sed -i "s/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g" /etc/apk/repositories \
     && apk upgrade \
