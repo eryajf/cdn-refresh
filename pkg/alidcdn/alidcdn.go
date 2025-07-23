@@ -21,15 +21,15 @@ func InitClient(ak, sk string) error {
 	return nil
 }
 
-func Refresh(ak, sk, zoneName, rtype string, urls []string) error {
-	err := InitClient(ak, sk)
+func Refresh(r tools.RefreshReq) error {
+	err := InitClient(r.Ak, r.Sk)
 	if err != nil {
 		return err
 	}
 	refreshDcdnObjectCachesRequest := &dcdn20180115.RefreshDcdnObjectCachesRequest{
-		ObjectType: tea.String(tools.AliGetRefreshType(rtype)),
+		ObjectType: tea.String(tools.AliGetRefreshType(r.Rtype)),
 		Force:      tea.Bool(false),
-		ObjectPath: tea.String(tools.AliGetUrls(urls)),
+		ObjectPath: tea.String(tools.AliGetUrls(r.Urls)),
 	}
 	_, err = DcdnClient.RefreshDcdnObjectCachesWithOptions(refreshDcdnObjectCachesRequest, &util.RuntimeOptions{})
 	if err != nil {

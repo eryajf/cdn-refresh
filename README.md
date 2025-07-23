@@ -27,6 +27,7 @@
 - [x] [阿里云 CDN](https://www.aliyun.com/product/cdn)
 - [x] [阿里云 DCDN](https://www.aliyun.com/product/cdn)
 - [x] [阿里云 ESA](https://www.aliyun.com/product/esa)
+- [x] [七牛云 CDN](https://developer.qiniu.com/fusion)
 
 如果您需要支持其他云厂商，欢迎提交 PR，或者提交Issue，我会尽快支持。
 
@@ -87,7 +88,7 @@ docker run -it --rm -e PLUGIN_AK="xxxxxxx" -e PLUGIN_SK="xxxxxxx" -e PLUGIN_KIND
 | :--: | :---------------: | :--------------------: | :--------------------- |
 |  ak  |     **必须**      |     string     | Access Key |
 |  sk  |     **必须**      |    string | Secret Key |
-|  kind  |     **必须**      |    string | cdn类别,支持 `doge` `tencenteo` `tencencdn` `alicdn` `alidcdn` `aliesa` |
+|  kind  |     **必须**      |    string | cdn类别,支持 `doge` `tencenteo` `tencencdn` `alicdn` `alidcdn` `aliesa` `qiniucdn` |
 |  domain  |     **必须**      |    string | 指定要操作的域名，当eo场景需要指定 |
 | rtype |     **必须**      |    string |        刷新类型，接受 `path` 或 `url`  |
 | urls  |     **必须**      |     array |        刷新URL，一个或多个          |

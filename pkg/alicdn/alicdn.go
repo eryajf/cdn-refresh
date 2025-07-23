@@ -21,7 +21,7 @@ func InitClient(ak, sk string) error {
 	return nil
 }
 
-func Refresh(ak, sk, zoneName, rtype string, urls []string) error {
+func Refresh(ak, sk, rtype string, urls []string) error {
 	err := InitClient(ak, sk)
 	if err != nil {
 		return err

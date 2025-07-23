@@ -21,31 +21,31 @@ func InitClient(ak, sk string) error {
 	return nil
 }
 
-func Refresh(ak, sk, zoneName, rtype string, urls []string) error {
-	err := InitClient(ak, sk)
+func Refresh(r tools.RefreshReq) error {
+	err := InitClient(r.Ak, r.Sk)
 	if err != nil {
 		return err
 	}
-	siteID, err := getSiteID(zoneName)
+	siteID, err := getSiteID(r.ZoneName)
 	if err != nil {
 		return err
 	}
 	var content *esa20240910.PurgeCachesRequestContent
-	if rtype == "url" {
+	if r.Rtype == "url" {
 		content = &esa20240910.PurgeCachesRequestContent{
 			PurgeAll: tea.Bool(false),
-			Files:    tools.StringSliceToInterfaceSlice(tea.StringSlice(urls)),
+			Files:    tools.StringSliceToInterfaceSlice(tea.StringSlice(r.Urls)),
 		}
 	} else {
 		content = &esa20240910.PurgeCachesRequestContent{
 			PurgeAll:    tea.Bool(false),
-			Directories: tea.StringSlice(urls),
+			Directories: tea.StringSlice(r.Urls),
 		}
 	}
 	purgeCachesRequest := &esa20240910.PurgeCachesRequest{
 		Content: content,
 		SiteId:  siteID,
-		Type:    tea.String(tools.AliGetRefreshType(rtype)),
+		Type:    tea.String(tools.AliGetRefreshType(r.Rtype)),
 		Force:   tea.Bool(true),
 	}
 	_, err = EsaClient.PurgeCachesWithOptions(purgeCachesRequest, &util.RuntimeOptions{})

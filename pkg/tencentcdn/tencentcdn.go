@@ -1,23 +1,24 @@
 package tencentcdn
 
 import (
+	"cnb.cool/znb/cdn-refresh/pkg/tools"
 	cdn "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/cdn/v20180606"
 	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
 	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/errors"
 	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/profile"
 )
 
-func Refresh(AccessKey, SecretKey, rtype string, urls []string) error {
-	credential := common.NewCredential(AccessKey, SecretKey)
+func Refresh(r tools.RefreshReq) error {
+	credential := common.NewCredential(r.Ak, r.Sk)
 	cpf := profile.NewClientProfile()
 	cpf.HttpProfile.Endpoint = "cdn.tencentcloudapi.com"
 	client, _ := cdn.NewClient(credential, "", cpf)
 
-	switch rtype {
+	switch r.Rtype {
 	case "url":
-		return refreshUrlCache(client, urls)
+		return refreshUrlCache(client, r.Urls)
 	case "path":
-		return refreshDirCache(client, urls)
+		return refreshDirCache(client, r.Urls)
 	default:
 		return nil
 	}

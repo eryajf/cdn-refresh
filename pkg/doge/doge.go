@@ -11,6 +11,8 @@ import (
 	"net/http"
 	"net/url"
 	"time"
+
+	"cnb.cool/znb/cdn-refresh/pkg/tools"
 )
 
 type APIResponse struct {
@@ -28,15 +30,15 @@ type APIData struct {
 }
 
 // refresh 刷新CDN
-func Refresh(AccessKey, SecretKey, rtype string, urls []string) (*APIResponse, error) {
-	urlObj, err := json.Marshal(urls)
+func Refresh(r tools.RefreshReq) (*APIResponse, error) {
+	urlObj, err := json.Marshal(r.Urls)
 	if err != nil {
 		log.Fatalln(err)
 	}
 	params := make(map[string]any)
-	params["rtype"] = rtype
+	params["rtype"] = r.Rtype
 	params["urls"] = string(urlObj)
-	return DogeCloudAPI(AccessKey, SecretKey, "/cdn/refresh/add.json", params)
+	return DogeCloudAPI(r.Ak, r.Sk, "/cdn/refresh/add.json", params)
 }
 
 // DogeCloudAPI 云函数API调用

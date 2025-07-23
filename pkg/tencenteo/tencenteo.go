@@ -8,23 +8,23 @@ import (
 	teo "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/teo/v20220901"
 )
 
-func Refresh(AccessKey, SecretKey, zoneName, rtype string, urls []string) error {
-	credential := common.NewCredential(AccessKey, SecretKey)
+func Refresh(r tools.RefreshReq) error {
+	credential := common.NewCredential(r.Ak, r.Sk)
 	cpf := profile.NewClientProfile()
 	cpf.HttpProfile.Endpoint = "teo.tencentcloudapi.com"
 	client, _ := teo.NewClient(credential, "", cpf)
 
 	// 获取zoneId
-	zoneId, err := getZoneId(client, zoneName)
+	zoneId, err := getZoneId(client, r.ZoneName)
 	if err != nil {
 		return err
 	}
 
 	request := teo.NewCreatePurgeTaskRequest()
 	request.ZoneId = common.StringPtr(zoneId)
-	request.Type = common.StringPtr(tools.TcGetRefreshType(rtype))
+	request.Type = common.StringPtr(tools.TcGetRefreshType(r.Rtype))
 	request.Method = common.StringPtr("invalidate")
-	request.Targets = common.StringPtrs(urls)
+	request.Targets = common.StringPtrs(r.Urls)
 	_, err = client.CreatePurgeTask(request)
 	if _, ok := err.(*errors.TencentCloudSDKError); ok {
 		return err

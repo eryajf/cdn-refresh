@@ -9,8 +9,10 @@ import (
 	"cnb.cool/znb/cdn-refresh/pkg/alidcdn"
 	"cnb.cool/znb/cdn-refresh/pkg/aliesa"
 	"cnb.cool/znb/cdn-refresh/pkg/doge"
+	"cnb.cool/znb/cdn-refresh/pkg/qiniucdn"
 	"cnb.cool/znb/cdn-refresh/pkg/tencentcdn"
 	"cnb.cool/znb/cdn-refresh/pkg/tencenteo"
+	"cnb.cool/znb/cdn-refresh/pkg/tools"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
@@ -28,7 +30,7 @@ func init() {
 	viper.BindEnv("urls")
 	rootCmd.Flags().StringP("ak", "a", viper.GetString("ak"), "cloud access key [$PLUGIN_AK]")
 	rootCmd.Flags().StringP("sk", "s", viper.GetString("sk"), "cloud secret key [$PLUGIN_SK]")
-	rootCmd.Flags().StringP("kind", "k", viper.GetString("kind"), "cdn kind (doge/tencenteo/tencentcdn/aliesa/alidcdn) [$PLUGIN_KIND]")
+	rootCmd.Flags().StringP("kind", "k", viper.GetString("kind"), "cdn kind (doge/tencenteo/tencentcdn/aliesa/alidcdn/qiniucdn) [$PLUGIN_KIND]")
 	rootCmd.Flags().StringP("domain", "d", viper.GetString("domain"), "domain name [$PLUGIN_DOMAIN]")
 	rootCmd.Flags().StringP("rtype", "t", viper.GetString("rtype"), "Refresh type (url/path) [$PLUGIN_RTYPE]")
 	rootCmd.Flags().StringSliceP("urls", "u", strings.Split(viper.GetString("urls"), ","), "Refresh URLs [$PLUGIN_URLS]")
@@ -56,43 +58,54 @@ var rootCmd = &cobra.Command{
 			return nil
 		}
 
+		r := tools.RefreshReq{
+			Ak:       ak,
+			Sk:       sk,
+			ZoneName: domain,
+			Rtype:    rtype,
+			Urls:     urls,
+		}
 		switch kind {
 		case "doge":
-			rst, err := doge.Refresh(ak, sk, rtype, urls)
-			if err != nil {
-				return err
-			}
-			if rst.Code != 200 {
+			rst, err := doge.Refresh(r)
+			if err != nil || rst.Code != 200 {
 				return fmt.Errorf("❌ refresh doge cdn failed")
 			}
 			fmt.Println("🎉 refresh doge cdn success")
 		case "tencenteo":
-			err := tencenteo.Refresh(ak, sk, domain, rtype, urls)
+			err := tencenteo.Refresh(r)
 			if err != nil {
-				return err
+				return fmt.Errorf("❌ refresh tencent eo failed: %v", err)
 			} else {
 				fmt.Println("🎉 refresh tencent eo success")
 			}
 		case "tencentcdn":
-			err := tencentcdn.Refresh(ak, sk, rtype, urls)
+			err := tencentcdn.Refresh(r)
 			if err != nil {
-				return err
+				return fmt.Errorf("❌ refresh tencent cdn failed: %v", err)
 			} else {
 				fmt.Println("🎉 refresh tencent cdn success")
 			}
 		case "aliesa":
-			err := aliesa.Refresh(ak, sk, domain, rtype, urls)
+			err := aliesa.Refresh(r)
 			if err != nil {
-				return err
+				return fmt.Errorf("❌ refresh ali esa failed: %v", err)
 			} else {
 				fmt.Println("🎉 refresh ali esa success")
 			}
 		case "alidcdn":
-			err := alidcdn.Refresh(ak, sk, domain, rtype, urls)
+			err := alidcdn.Refresh(r)
 			if err != nil {
-				return err
+				return fmt.Errorf("❌ refresh ali dcdn failed: %v", err)
 			} else {
 				fmt.Println("🎉 refresh ali dcdn success")
+			}
+		case "qiniucdn":
+			err := qiniucdn.Refresh(r)
+			if err != nil {
+				return fmt.Errorf("❌ refresh qiniu cdn failed: %v", err)
+			} else {
+				fmt.Println("🎉 refresh qiniu cdn success")
 			}
 		}
 		return nil
