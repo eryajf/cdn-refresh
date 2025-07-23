@@ -40,7 +40,7 @@ func init() {
 
 var rootCmd = &cobra.Command{
 	Use:     "cdn-refresh",
-	Short:   "Cloud CDN Refresh Plugin",
+	Short:   "🍒 Cloud CDN Refresh Plugin",
 	Version: "v0.1.0",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		ak, _ := cmd.Flags().GetString("ak")
@@ -51,7 +51,7 @@ var rootCmd = &cobra.Command{
 		urls, _ := cmd.Flags().GetStringSlice("urls")
 
 		// 如果没有提供任何参数或必要参数缺失，显示帮助信息
-		if len(os.Args) == 1 || kind == "" {
+		if len(os.Args) == 1 && kind == "" {
 			cmd.Help()
 			return nil
 		}
