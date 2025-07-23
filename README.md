@@ -27,7 +27,7 @@
 - [x] [阿里云 CDN](https://www.aliyun.com/product/cdn)
 - [x] [阿里云 DCDN](https://www.aliyun.com/product/cdn)
 - [x] [阿里云 ESA](https://www.aliyun.com/product/esa)
-- [x] [七牛云 CDN](https://developer.qiniu.com/fusion)
+- [x] [七牛云 CDN](https://www.qiniu.com/products/qcdn)
 
 如果您需要支持其他云厂商，欢迎提交 PR，或者提交Issue，我会尽快支持。
 
