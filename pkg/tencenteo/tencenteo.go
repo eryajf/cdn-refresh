@@ -1,6 +1,7 @@
 package tencenteo
 
 import (
+	"cnb.cool/znb/cdn-refresh/pkg/tools"
 	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
 	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/errors"
 	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/profile"
@@ -21,7 +22,7 @@ func Refresh(AccessKey, SecretKey, zoneName, rtype string, urls []string) error 
 
 	request := teo.NewCreatePurgeTaskRequest()
 	request.ZoneId = common.StringPtr(zoneId)
-	request.Type = common.StringPtr(getRefreshType(rtype))
+	request.Type = common.StringPtr(tools.TcGetRefreshType(rtype))
 	request.Method = common.StringPtr("invalidate")
 	request.Targets = common.StringPtrs(urls)
 	_, err = client.CreatePurgeTask(request)
@@ -32,17 +33,6 @@ func Refresh(AccessKey, SecretKey, zoneName, rtype string, urls []string) error 
 		return err
 	}
 	return nil
-}
-
-func getRefreshType(rtype string) string {
-	switch rtype {
-	case "url":
-		return "purge_url"
-	case "path":
-		return "purge_prefix"
-	default:
-		return ""
-	}
 }
 
 func getZoneId(client *teo.Client, zoneName string) (string, error) {

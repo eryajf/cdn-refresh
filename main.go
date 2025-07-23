@@ -6,6 +6,8 @@ import (
 	"os"
 	"strings"
 
+	"cnb.cool/znb/cdn-refresh/pkg/alidcdn"
+	"cnb.cool/znb/cdn-refresh/pkg/aliesa"
 	"cnb.cool/znb/cdn-refresh/pkg/doge"
 	"cnb.cool/znb/cdn-refresh/pkg/tencentcdn"
 	"cnb.cool/znb/cdn-refresh/pkg/tencenteo"
@@ -26,7 +28,7 @@ func init() {
 	viper.BindEnv("urls")
 	rootCmd.Flags().StringP("ak", "a", viper.GetString("ak"), "cloud access key [$PLUGIN_AK]")
 	rootCmd.Flags().StringP("sk", "s", viper.GetString("sk"), "cloud secret key [$PLUGIN_SK]")
-	rootCmd.Flags().StringP("kind", "k", viper.GetString("kind"), "cdn kind (doge/tencenteo/tencentcdn) [$PLUGIN_KIND]")
+	rootCmd.Flags().StringP("kind", "k", viper.GetString("kind"), "cdn kind (doge/tencenteo/tencentcdn/aliesa/alidcdn) [$PLUGIN_KIND]")
 	rootCmd.Flags().StringP("domain", "d", viper.GetString("domain"), "domain name [$PLUGIN_DOMAIN]")
 	rootCmd.Flags().StringP("rtype", "t", viper.GetString("rtype"), "Refresh type (url/path) [$PLUGIN_RTYPE]")
 	rootCmd.Flags().StringSliceP("urls", "u", strings.Split(viper.GetString("urls"), ","), "Refresh URLs [$PLUGIN_URLS]")
@@ -47,6 +49,12 @@ var rootCmd = &cobra.Command{
 		domain, _ := cmd.Flags().GetString("domain")
 		rtype, _ := cmd.Flags().GetString("rtype")
 		urls, _ := cmd.Flags().GetStringSlice("urls")
+
+		// 如果没有提供任何参数或必要参数缺失，显示帮助信息
+		if len(os.Args) == 1 || kind == "" {
+			cmd.Help()
+			return nil
+		}
 
 		switch kind {
 		case "doge":
@@ -71,6 +79,20 @@ var rootCmd = &cobra.Command{
 				return err
 			} else {
 				fmt.Println("🎉 refresh tencent cdn success")
+			}
+		case "aliesa":
+			err := aliesa.Refresh(ak, sk, domain, rtype, urls)
+			if err != nil {
+				return err
+			} else {
+				fmt.Println("🎉 refresh ali esa success")
+			}
+		case "alidcdn":
+			err := alidcdn.Refresh(ak, sk, domain, rtype, urls)
+			if err != nil {
+				return err
+			} else {
+				fmt.Println("🎉 refresh ali dcdn success")
 			}
 		}
 		return nil

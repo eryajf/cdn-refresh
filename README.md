@@ -15,7 +15,20 @@
 
 ## ℹ️ 项目简介
 
-本项目为 [多吉云](https://www.dogecloud.com/) CDN 缓存刷新插件，支持刷新目录和 URL 缓存。访问：[插件市场](https://docs.cnb.cool/zh/plugins/public/open-source/doge-cdn-refresh/doge-cdn-refresh)
+访问：[插件市场](https://docs.cnb.cool/zh/plugins/public/open-source/doge-cdn-refresh/doge-cdn-refresh)
+
+项目支持多个云厂商 CDN 缓存刷新，支持刷新目录和 URL 缓存，用于在 CNB 云原生构建中，刷新 CDN 缓存。
+
+支持：
+
+- [x] [多吉云 CDN](https://www.dogecloud.com/)
+- [x] [腾讯云 CDN](https://cloud.tencent.com/product/cdn)
+- [x] [腾讯云 EO](https://cloud.tencent.com/product/teo)
+- [x] [阿里云 CDN](https://www.aliyun.com/product/cdn)
+- [x] [阿里云 DCDN](https://www.aliyun.com/product/cdn)
+- [x] [阿里云 ESA](https://www.aliyun.com/product/esa)
+
+如果您需要支持其他云厂商，欢迎提交 PR，或者提交Issue，我会尽快支持。
 
 ## 🗣️ 用法介绍
 
@@ -28,14 +41,18 @@ main:
         - https://cnb.cool/xxx/env/-/blob/main/env.yaml
       stages:
         - name: test dcr path
-          image: docker.cnb.cool/znb/cdn-refresh/dcr
+          image: docker.cnb.cool/znb/cdn-refresh
           settings:
-            ak: "${DOGE_AK}"
-            sk: "${DOGE_SK}"
+            kind: "tencenteo"
+            ak: "${AK}"
+            sk: "${SK}"
             rtype: "path"
+            domain: "opsre.top"
             urls:
               - "https://jenkinsguide.opsre.top/"
 ```
+
+需要引入对应CDN厂商的秘钥，具体引入的语法，详见文档：[环境变量](https://docs.cnb.cool/zh/build/env.html#dao-ru-huan-jing-bian-liang)
 
 刷新CDN URL缓存：
 
@@ -46,14 +63,22 @@ main:
         - https://cnb.cool/xxx/env/-/blob/main/env.yaml
       stages:
         - name: test dcr url
-          image: docker.cnb.cool/znb/cdn-refresh/dcr
+          image: docker.cnb.cool/znb/cdn-refresh
           settings:
-            ak: "${DOGE_AK"
-            sk: "${DOGE_SK}"
+            kind: "tencenteo"
+            ak: "${AK"
+            sk: "${SK}"
             rtype: "url"
+            domain: "opsre.top"
             urls:
-              - "https://wiki.eryajf.net/about/"
-              - "https://wiki.eryajf.net/pages/b2f34c/"
+              - "https://jenkinsguide.opsre.top/pages/385f87.html"
+              - "https://jenkinsguide.opsre.top/pages/ce3667.html"
+```
+
+如果你配置流水线之后，执行失败，可通过如下命令，调试相关参数：
+
+```
+docker run -it --rm -e PLUGIN_AK="xxxxxxx" -e PLUGIN_SK="xxxxxxx" -e PLUGIN_KIND="doge" -e PLUGIN_DOMAIN="opsre.top" -e PLUGIN_RTYPE="path" -e PLUGIN_URLS="https://jenkinsguide.opsre.top/" docker.cnb.cool/znb/cdn-refresh:latest
 ```
 
 ## 📑 参数说明
@@ -62,7 +87,7 @@ main:
 | :--: | :---------------: | :--------------------: | :--------------------- |
 |  ak  |     **必须**      |     string     | Access Key |
 |  sk  |     **必须**      |    string | Secret Key |
-|  kind  |     **必须**      |    string | cdn类别,支持 `doge` `tencenteo` `tencencdn` |
+|  kind  |     **必须**      |    string | cdn类别,支持 `doge` `tencenteo` `tencencdn` `alicdn` `alidcdn` `aliesa` |
 |  domain  |     **必须**      |    string | 指定要操作的域名，当eo场景需要指定 |
 | rtype |     **必须**      |    string |        刷新类型，接受 `path` 或 `url`  |
 | urls  |     **必须**      |     array |        刷新URL，一个或多个          |
@@ -76,3 +101,11 @@ main:
 | :------: | :------------------------------------------: |
 |  `CNB`  | <https://cnb.cool/znb/cdn-refresh>  |
 | `GitHub` | <https://github.com/eryajf/cdn-refresh> |
+
+## 💰 捐赠打赏
+
+如果你觉得这个项目对你有帮助，你可以请作者喝杯咖啡 ☕️
+
+| 支付宝|微信|
+|:--------: |:--------: |
+|![](https://cnb.cool/66666/resource/-/git/raw/main/img/zhifubao.png)| ![](https://cnb.cool/66666/resource/-/git/raw/main/img/wechat.png) |
