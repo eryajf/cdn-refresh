@@ -15,7 +15,7 @@
 
 ## ℹ️ 项目简介
 
-访问：[插件市场](https://docs.cnb.cool/zh/plugins/public/open-source/doge-cdn-refresh/doge-cdn-refresh)
+访问：[插件市场](https://docs.cnb.cool/zh/plugin/#public/open-source/cdn-refresh/cdn-refresh)
 
 项目支持多个云厂商 CDN 缓存刷新，支持刷新目录和 URL 缓存，用于在 CNB 云原生构建中，刷新 CDN 缓存。
 
